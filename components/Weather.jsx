@@ -7,10 +7,6 @@ import useSWR from 'swr'
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-// const apiKey = 'dec8ac5aa73a767fbf998957636cbc70'
-// const lat = '-25.4295963'
-// const lon = '-49.2712724'
-
 const Weather = ({ apiKey, clearApi, lat, lon }) => {
 
   const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${apiKey}`
