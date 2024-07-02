@@ -1,95 +1,53 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+
+import { useState, useEffect } from "react"
+
+import Weather from "@/components/Weather";
+import ApiSet from "@/components/ApiSet";
+import Time from "@/components/Time";
 
 export default function Home() {
+
+  const [apiKey, setApiKey] = useState("")
+  const [latitude, setLatitude] = useState("")
+  const [longitude, setLongitude] = useState("")
+
+  useEffect(() => {
+    setApiKey(localStorage.getItem("apiKey") || "")
+    setLatitude(localStorage.getItem("latitude") || "")
+    setLongitude(localStorage.getItem("longitude") || "")
+  }, [apiKey, latitude, longitude]);
+
+  console.log('LOCAL-LAT: ', latitude)
+
+  const handleSaveApi = e => {
+    e.preventDefault()
+    localStorage.setItem("apiKey", e.target[0].value)
+    localStorage.setItem("latitude", e.target[1].value)
+    localStorage.setItem("longitude", e.target[2].value)
+    setApiKey(e.target[0].value)
+    setLatitude(e.target[1].value)
+    setLongitude(e.target[2].value)
+    console.log(e.target)
+  }
+
+  const handleClearApi = e => {
+    e.preventDefault()
+    localStorage.removeItem("apiKey")
+    localStorage.removeItem("latitude")
+    localStorage.removeItem("longitude")
+    setApiKey("")
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <>
+      <div className="container">
+        <Time />
+        {apiKey ?
+          <Weather apiKey={apiKey} clearApi={handleClearApi} lat={latitude} lon={longitude} /> :
+          <ApiSet saveApi={handleSaveApi} apiKey={apiKey} />}
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   );
 }
