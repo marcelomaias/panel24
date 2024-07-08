@@ -20,12 +20,10 @@ const Weather = ({ apiKey, clearApi, lat, lon }) => {
 
   return (
     <section className='weather'>
-      <div className="weather__header">
-        <div className='desc'>{data.weather[0]?.description}</div>
-        <div className='temp'>{Math.round(data.main?.temp)}&deg;</div>
-        {/* <div className='temp'>{data.main?.temp}</div> */}
-        <Image className='icon' src={`/weather/${setIcon(data.weather[0].icon)}`} width={164} height={164} alt='Weather icon' />
-      </div>
+      <div className='desc'>{data.weather[0]?.description}</div>
+      <div className='temp'>{Math.round(data.main?.temp)}&deg;</div>
+      {/* <div className='temp'>{data.main?.temp}</div> */}
+      <Image className='icon' src={`/weather/${setIcon(data.weather[0].icon)}`} width={164} height={164} alt='Weather icon' />
 
 
       {/* <div>{data.name}</div> */}

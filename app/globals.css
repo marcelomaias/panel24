@@ -18,7 +18,7 @@ body {
 }
 
 .container {
-  max-width: 63dvw;
+  /* max-width: 63dvw; */
   margin: 0 auto;
   height: 100%;
   display: flex;
@@ -31,11 +31,14 @@ body {
   font-size: 80dvh;
   display: flex;
   justify-content: center;
-  gap: 80px;
+  gap: 90px;
 }
 
 .weather {
   margin-top: -50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .temp {
@@ -47,17 +50,11 @@ body {
   font-size: 92px;
   text-transform: capitalize;
   letter-spacing: 4px;
-  margin-right: auto;
+  margin-right: 250px;
 }
 
 .icon {
   filter: invert(1);
   opacity: .2;
   transform: scale(1.5);
-}
-
-.weather__header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
 }
